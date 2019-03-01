@@ -80,15 +80,15 @@ public class MainController {
 	}
 
 	@GetMapping(path="/all")
-	// public @ResponseBody Iterable<User> getAllUsers() {
-	public @ResponseBody Userout getAllUsers() {
+	public @ResponseBody Iterable<User> getAllUsers() {
+	// public @ResponseBody Userout getAllUsers() {
 		// This returns a JSON or XML with the users
 		System.out.println("==== in demo/all ====");
-		// return userRepository.findAll();
-		for (User u : userRepository.findAll()) {
-			return new Userout(u.getId(), u.getName(), u.getEmail());
-		}
-		return null;
+		return userRepository.findAll();
+		// for (User u : userRepository.findAll()) {
+		// 	return new Userout(u.getId(), u.getName(), u.getEmail());
+		// }
+		// return null;
 	}
 
 	@GetMapping(path="/findByName")
