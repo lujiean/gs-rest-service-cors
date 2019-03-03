@@ -29,10 +29,10 @@
 
 		<div ng-controller="UserAdd">
 			<form>
-				Name: <input type="text" ng-modal="name"><br>
-				Email: <input type="text" ng-modal="email"><br>
+				Name: <input type="text" ng-model="username"><br>
+				Email: <input type="text" ng-model="useremail"><br>
 				<button ng-click="adduser()">Add User</button>
-				<p>add result is: {{description}}</p>
+				<p>add result is: {{rsp.description}}</p>
 			</form>
 		</div>
 		<hr>

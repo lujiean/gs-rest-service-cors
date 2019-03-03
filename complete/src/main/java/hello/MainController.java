@@ -28,7 +28,7 @@ public class MainController {
 	private LjjtestRepository ljjtestRepository;
 
 	@GetMapping(path="/add") // Map ONLY GET Requests
-	public @ResponseBody String addNewUser (@RequestParam String name
+	public @ResponseBody Response addNewUser (@RequestParam String name
 			, @RequestParam String email) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -37,11 +37,13 @@ public class MainController {
 		n.setName(name);
 		n.setEmail(email);
 		userRepository.save(n);
-		return "Saved";
+		// return "Saved";
+		return new Response("Saved");
 	}
 
 	@GetMapping(path="/update") // Map ONLY GET Requests
-	public @ResponseBody String updateUser (@RequestParam Integer id, @RequestParam String name
+	// public @ResponseBody String updateUser (@RequestParam Integer id, @RequestParam String name
+	public @ResponseBody Response updateUser (@RequestParam Integer id, @RequestParam String name
 			, @RequestParam String email) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -52,22 +54,25 @@ public class MainController {
 			n.setName(name);
 			n.setEmail(email);
 			userRepository.save(n);
-			return "Updated";
+			// return "Updated";
+			return new Response("Updated");
 		} else {
-			return "ID not exists";
+			// return "ID not exists";
+			return new Response("ID not exists");
 		}
 	}
 
 	@GetMapping(path="/delete") // Map ONLY GET Requests
-	public @ResponseBody String delUser (@RequestParam Integer id) {
+	// public @ResponseBody String delUser (@RequestParam Integer id) {
+	public @ResponseBody Response delUser (@RequestParam Integer id) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
 		if (userRepository.existsById(id)) {
 			userRepository.deleteById(id);
-			return "Deleted";
+			return new Response("Deleted");
 		} else {
-			return "ID not exists";
+			return new Response("ID not exists");
 		}
 	}
 
@@ -102,10 +107,12 @@ public class MainController {
 	}
 
 	@GetMapping(path="/updateBySql")
-	public @ResponseBody String updateBySql(@RequestParam Integer id, @RequestParam String name2){
+	// public @ResponseBody String updateBySql(@RequestParam Integer id, @RequestParam String name2){
+	public @ResponseBody Response updateBySql(@RequestParam Integer id, @RequestParam String name2){
 		// userRepository.updateBySql(id, name2);
 		userRepository.updateBySql(name2, id);
-		return "success";
+		// return "success";
+		return new Response("success");
 	}
 
 	@GetMapping(path="/file")
