@@ -8,12 +8,22 @@
 
 	<body>
 		<div ng-controller="Hello">
-			<p>The ID is {{grt.id}}</p>
-			<p>The content is {{grt.content}}</p>
+			<p>The ID is {{grt.id}} <br />The content is {{grt.content}}</p>
+			<!-- <p>The content is {{grt.content}}</p> -->
 		</div>
 		<hr>
 		
 		<div ng-controller="User">
+			<p>Filter:<br />Add user <br />Update user<br />Delete user by id</p>
+			id: <input type="number" ng-model="userid" /><br>
+			Name: <input type="text" ng-model="username" /><br>
+			Email: <input type="text" ng-model="useremail" /><br>
+			<button ng-click="clear()">Clear Input</button><button ng-click="search()">Search</button><br>
+			<button ng-click="adduser()">Add User</button><br>
+			<button ng-click="upduser()">Update User</button><br>
+			<button ng-click="deluser()">Delete User</button><br>
+			<P>Search type is: {{ stype }}</P>
+			<p>process result is: {{rsp.description}}</p>
 			<table>
 				<tr ng-repeat="x in users">
 					<td>{{ x.id }}</td>
@@ -21,19 +31,6 @@
 					<td>{{ x.email }}</td>
 				</tr>
 			</table>
-			<!-- <p>User's ID is {{userout.id}}</p>
-			<p>User's name is {{userout.name}}</p>
-			<p>User's email is {{userout.email}}</p> -->
-		</div>
-		<hr>
-
-		<div ng-controller="UserAdd">
-			<form>
-				Name: <input type="text" ng-model="username"><br>
-				Email: <input type="text" ng-model="useremail"><br>
-				<button ng-click="adduser()">Add User</button>
-				<p>add result is: {{rsp.description}}</p>
-			</form>
 		</div>
 		<hr>
 	</body>

@@ -77,18 +77,34 @@ public class MainController {
 	}
 
 	@GetMapping(path="/findByID") // Map ONLY GET Requests
-	public @ResponseBody Optional<User> finduserbyid (@RequestParam Integer id) {
+	// public @ResponseBody Optional<User> finduserbyid (@RequestParam Integer id) {
+	// Optional not for Response.
+	public @ResponseBody Iterable<User> finduserbyid (@RequestParam Integer id) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
-		return userRepository.findById(id);
+		// return userRepository.findById(id);
+
+		ArrayList<User> foit = new ArrayList<User>();
+		Optional<User> ou = userRepository.findById(id);
+
+		if(ou.isPresent()){
+			foit.add(ou.get());
+		}
+		return foit;
+		
+		// for (User u : userRepository.findById(id)) {
+			
+		// }
+		// userRepository.findById(id)
+
 	}
 
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
 	// public @ResponseBody Userout getAllUsers() {
 		// This returns a JSON or XML with the users
-		System.out.println("==== in demo/all ====");
+		// System.out.println("==== in demo/all ====");
 		return userRepository.findAll();
 		// for (User u : userRepository.findAll()) {
 		// 	return new Userout(u.getId(), u.getName(), u.getEmail());
