@@ -3,7 +3,8 @@ angular.module('demo', [])
     $scope.domain = window.location.host;
 })
 .controller('Hello', function($scope, $http) {
-    $http.get('http://localhost:8080/greeting').
+    // $http.get('http://localhost:8080/greeting').
+    $http.get('http://' + window.location.host + '/greeting').
         then(function(response) {
             // $scope.greeting = response.data;
             $scope.grt = response.data;
