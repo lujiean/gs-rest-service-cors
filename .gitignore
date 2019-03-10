@@ -17,3 +17,10 @@ README.html
 *.iml
 .idea
 .vscode
+# compiled output
+*/src/main/web/dist
+
+# dependencies
+*/src/main/web/node_modules
+
+public/

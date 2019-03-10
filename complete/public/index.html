@@ -1,42 +1,14 @@
 <!doctype html>
-<html ng-app="demo">
-	<head>
-		<title>Hello AngularJS</title>
-		<script src="https://cdn.bootcss.com/angular.js/1.4.3/angular.min.js"></script>
-    	<script src="hello.js"></script>
-	</head>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MyApp</title>
+  <base href="/">
 
-	<body>
-		<div ng-controller="Domain">
-			<p>Current Domain: {{ domain }}</p>
-		</div>
-		<hr>
-		
-		<div ng-controller="Hello">
-			<p>The ID is {{grt.id}} <br />The content is {{grt.content}}</p>
-			<!-- <p>The content is {{grt.content}}</p> -->
-		</div>
-		<hr>
-		
-		<div ng-controller="User">
-			<p>Filter:<br />Add user <br />Update user<br />Delete user by id</p>
-			id: <input type="number" ng-model="userid" /><br>
-			Name: <input type="text" ng-model="username" /><br>
-			Email: <input type="text" ng-model="useremail" /><br>
-			<button ng-click="clear()">Clear Input</button><button ng-click="search()">Search</button><br>
-			<button ng-click="adduser()">Add User</button><br>
-			<button ng-click="upduser()">Update User</button><br>
-			<button ng-click="deluser()">Delete User</button><br>
-			<P>Search type is: {{ stype }}</P>
-			<p>process result is: {{rsp.description}}</p>
-			<table>
-				<tr ng-repeat="x in users">
-					<td>{{ x.id }}</td>
-					<td>{{ x.name }}</td>
-					<td>{{ x.email }}</td>
-				</tr>
-			</table>
-		</div>
-		<hr>
-	</body>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+<script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
 </html>
