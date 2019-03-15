@@ -10,11 +10,11 @@ begin
     -- declare f_name varchar(255);
 
     select email, name
-      into @fo_email, @fo_name
+      into fo_email, fo_name
       from user
-     where id = @fi_id;
+     where id = fi_id;
     -- set @f_email = 'testemail';
     -- set @f_name = 'testname';
-    select @fo_email, @fo_name;
+    select fo_email, fo_name;
 end$$
 delimiter ;
