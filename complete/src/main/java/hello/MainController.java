@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import hello.User;
 import hello.UserRepository;
+import utils.StoreProcedureExt;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -187,5 +188,44 @@ public class MainController {
 	@ResponseBody
 	public Iterable<Ljjtest> ljjAll() {
 		return ljjtestRepository.findAll();
+	}
+
+	@GetMapping(path="/findBySP")
+	@ResponseBody
+	public String findBySP(@RequestParam Integer id){
+
+		StoreProcedureExt spe = new StoreProcedureExt();
+		
+
+
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:spring/applicationContext-base.xml");
+		JdbcTemplate jdbc = (JdbcTemplate) context.getBean("jdbcTemplate");
+ 
+		StoreProcedureExt spe = new StoreProcedureExt();
+		
+		spe.setJdbcTemplate(jdbc);
+		spe.setSql("testproc");
+		//注意有返回结果集的时候，第一个参数必须设置为返回结果集参数，不然会报错。
+		spe.setReturnParam("rows", new FirstReportRowMapper());
+		
+		spe.setIntegerParam("@parama");
+		
+		spe.setValue("@parama", 9);
+		
+		Map map = spe.execute();
+		Object o = map.get("rows");
+		List<FirstReportVO> list = (List<FirstReportVO>)o;
+		for (FirstReportVO vo : list) {
+			System.out.println(vo.getSortID()+","+vo.getSortName());
+		}
+
+// --------------------- 
+// 作者：xiao_jun_0820 
+// 来源：CSDN 
+//原文：https://blog.csdn.net/xiao_jun_0820/article/details/7268219 
+//版权声明：本文为博主原创文章，转载请附上博文链接！
+
+		return "found";
 	}
 }
