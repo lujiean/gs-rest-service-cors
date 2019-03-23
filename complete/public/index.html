@@ -27,8 +27,10 @@
 			<button ng-click="adduser()">Add User</button><br>
 			<button ng-click="upduser()">Update User</button><br>
 			<button ng-click="deluser()">Delete User</button><br>
+			<button ng-click="searchBySP()">Search by ID(SP)</button><br>
 			<P>Search type is: {{ stype }}</P>
 			<p>process result is: {{rsp.description}}</p>
+			<p>find by SP result: {{fsp.id}}, {{fsp.name}}, {{fsp.email}}</p>
 			<table>
 				<tr ng-repeat="x in users">
 					<td>{{ x.id }}</td>

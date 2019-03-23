@@ -80,6 +80,14 @@ angular.module('demo', [])
         $scope.clear();
         $scope.search();
     };
+    $scope.searchBySP = function () {
+        $scope.stype = "findBySP";
+        link = 'http://' + window.location.host + '/demo/findBySP?id=' + $scope.userid;
+        $http.get(link).
+            then(function(response){
+                $scope.fsp = response.data;
+            });
+    }
     
     //run search
     $scope.search();
