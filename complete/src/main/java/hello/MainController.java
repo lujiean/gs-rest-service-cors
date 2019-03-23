@@ -1,6 +1,9 @@
 package hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 
+import javax.sql.DataSource;
+
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class MainController {
@@ -27,6 +32,9 @@ public class MainController {
 
 	@Autowired
 	private LjjtestRepository ljjtestRepository;
+
+	@Autowired
+	private DataSource ds;
 
 	@GetMapping(path="/add") // Map ONLY GET Requests
 	public @ResponseBody Response addNewUser (@RequestParam String name
@@ -192,40 +200,19 @@ public class MainController {
 
 	@GetMapping(path="/findBySP")
 	@ResponseBody
-	public String findBySP(@RequestParam Integer id){
+	public User findBySP(@RequestParam Integer id){
 
-		StoreProcedureExt spe = new StoreProcedureExt();
-		
-
-
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"classpath:spring/applicationContext-base.xml");
-		JdbcTemplate jdbc = (JdbcTemplate) context.getBean("jdbcTemplate");
- 
-		StoreProcedureExt spe = new StoreProcedureExt();
-		
-		spe.setJdbcTemplate(jdbc);
-		spe.setSql("testproc");
-		//注意有返回结果集的时候，第一个参数必须设置为返回结果集参数，不然会报错。
-		spe.setReturnParam("rows", new FirstReportRowMapper());
-		
-		spe.setIntegerParam("@parama");
-		
-		spe.setValue("@parama", 9);
-		
-		Map map = spe.execute();
-		Object o = map.get("rows");
-		List<FirstReportVO> list = (List<FirstReportVO>)o;
-		for (FirstReportVO vo : list) {
-			System.out.println(vo.getSortID()+","+vo.getSortName());
-		}
-
-// --------------------- 
-// 作者：xiao_jun_0820 
-// 来源：CSDN 
-//原文：https://blog.csdn.net/xiao_jun_0820/article/details/7268219 
-//版权声明：本文为博主原创文章，转载请附上博文链接！
-
-		return "found";
+		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(ds).withProcedureName("ljjtest_sp1");
+		SqlParameterSource in = new MapSqlParameterSource().
+								addValue("fi_id", id);
+		Map<String, Object> out = jdbcCall.execute(in);
+		User student = new User();
+		student.setId(id);
+		student.setName((String) out.get("fo_name"));
+		student.setEmail((String) out.get("fo_email"));
+		return student;
+		// https://www.cnblogs.com/youcong/p/9460861.html
+		// https://www.cnblogs.com/AloneSword/p/3591702.html
+		// return "found";
 	}
 }
