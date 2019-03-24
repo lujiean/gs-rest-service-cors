@@ -200,17 +200,18 @@ public class MainController {
 
 	@GetMapping(path="/findBySP")
 	@ResponseBody
-	public User findBySP(@RequestParam Integer id){
+	public LjjSPOutMap findBySP(@RequestParam Integer id){
 
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(ds).withProcedureName("ljjtest_sp1");
 		SqlParameterSource in = new MapSqlParameterSource().
 								addValue("fi_id", id);
 		Map<String, Object> out = jdbcCall.execute(in);
-		User student = new User();
-		student.setId(id);
-		student.setName((String) out.get("fo_name"));
-		student.setEmail((String) out.get("fo_email"));
-		return student;
+		// set ouput
+		LjjSPOutMap spOut = new LjjSPOutMap();
+		spOut.setName((String) out.get("fo_name"));
+		spOut.setEmail((String) out.get("fo_email"));
+		// set output end
+		return spOut;
 		// https://www.cnblogs.com/youcong/p/9460861.html
 		// https://www.cnblogs.com/AloneSword/p/3591702.html
 		// return "found";
