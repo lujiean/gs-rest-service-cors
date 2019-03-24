@@ -52,7 +52,7 @@ angular.module('demo', [])
         // link = 'http://localhost:8080/demo/add?name=' + $scope.username + '&email=' + $scope.useremail;
         // link = 'http://' + window.location.host + '/demo/add?name=' + $scope.username + '&email=' + $scope.useremail;
         // $http.get(link).
-        $http.get("demo/add?name", {
+        $http.get("demo/add", {
             params:{name:$scope.username, email:$scope.useremail}
         }).
             then(function(response) {
