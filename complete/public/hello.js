@@ -4,7 +4,8 @@ angular.module('demo', [])
 })
 .controller('Hello', function($scope, $http) {
     // $http.get('http://localhost:8080/greeting').
-    $http.get('http://' + window.location.host + '/greeting').
+    // $http.get('http://' + window.location.host + '/greeting').
+    $http.get('greeting').
         then(function(response) {
             // $scope.greeting = response.data;
             $scope.grt = response.data;
@@ -49,8 +50,11 @@ angular.module('demo', [])
         // link = 'http://localhost:8080/demo/add?name=' + fi_name + '&email=' + $scope.email
         // console.log(user);
         // link = 'http://localhost:8080/demo/add?name=' + $scope.username + '&email=' + $scope.useremail;
-        link = 'http://' + window.location.host + '/demo/add?name=' + $scope.username + '&email=' + $scope.useremail;
-        $http.get(link).
+        // link = 'http://' + window.location.host + '/demo/add?name=' + $scope.username + '&email=' + $scope.useremail;
+        // $http.get(link).
+        $http.get("demo/add?name", {
+            params:{name:$scope.username, email:$scope.useremail}
+        }).
             then(function(response) {
                 // $scope.greeting = response.data;
                 $scope.rsp = response.data;
@@ -61,8 +65,11 @@ angular.module('demo', [])
     $scope.deluser = function () {
         // link = 'http://localhost:8080/demo/add?name=' + fi_name + '&email=' + $scope.email
         // console.log(user);
-        link = 'http://' + window.location.host + '/demo/delete?id=' + $scope.userid;
-        $http.get(link).
+        // link = 'http://' + window.location.host + '/demo/delete?id=' + $scope.userid;
+        // $http.get(link).
+        $http.get("demo/delete", {
+            params:{id:$scope.userid}
+        }).
             then(function(response) {
                 // $scope.greeting = response.data;
                 $scope.rsp = response.data;
@@ -72,8 +79,13 @@ angular.module('demo', [])
     };
     $scope.upduser = function () {
         // link = 'http://localhost:8080/demo/update?id=' + $scope.userid + '&name=' + $scope.username + '&email=' + $scope.useremail;
-        link = 'http://' + window.location.host + '/demo/update?id=' + $scope.userid + '&name=' + $scope.username + '&email=' + $scope.useremail;
-        $http.get(link).
+        // link = 'http://' + window.location.host + '/demo/update?id=' + $scope.userid + '&name=' + $scope.username + '&email=' + $scope.useremail;
+        // $http.get(link).
+        $http.get("demo/update", {
+            params:{id:$scope.userid, name:$scope.username, email:$scope.useremail},   //增加请求参数
+            // params:{name:$scope.username},   //增加请求参数
+            // params:{email:$scope.useremail},   //增加请求参数
+        }).
             then(function(response){
                 $scope.rsp = response.data;
             });
@@ -82,8 +94,11 @@ angular.module('demo', [])
     };
     $scope.searchBySP = function () {
         $scope.stype = "findBySP";
-        link = 'http://' + window.location.host + '/demo/findBySP?id=' + $scope.userid;
-        $http.get(link).
+        // link = 'http://' + window.location.host + '/demo/findBySP?id=' + $scope.userid;
+        // $http.get(link).
+        $http.get("demo/findBySP", {
+            params:{id:$scope.userid}   //增加请求参数
+        }).
             then(function(response){
                 $scope.fsp = response.data;
             });

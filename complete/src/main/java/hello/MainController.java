@@ -216,4 +216,10 @@ public class MainController {
 		// https://www.cnblogs.com/AloneSword/p/3591702.html
 		// return "found";
 	}
+
+	@GetMapping(path="/testjsp")
+	public String testJsp(){
+		System.out.println("in testJsp");
+		return "jsp_page";
+	}
 }
