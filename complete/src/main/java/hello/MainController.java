@@ -222,4 +222,25 @@ public class MainController {
 		System.out.println("in testJsp");
 		return "jsp_page";
 	}
+
+	//test sp class output
+	@GetMapping(path="/spjson")
+	@ResponseBody
+	public SP testSPjson() {
+	// public @ResponseBody Userout getAllUsers() {
+		// This returns a JSON or XML with the users
+		// System.out.println("==== in demo/all ====");
+
+		List<SPColumn> spc = new ArrayList<SPColumn>();
+		spc.add(new SPColumn(1, "pol_no", 1, false));
+		spc.add(new SPColumn(2, "mvmt_no", 2, false));
+		spc.add(new SPColumn(3, "is_bb_define", 1, true));
+
+		SP sp = new SP("sp_test", spc);
+		return sp;
+		// for (User u : userRepository.findAll()) {
+		// 	return new Userout(u.getId(), u.getName(), u.getEmail());
+		// }
+		// return null;
+	}
 }
